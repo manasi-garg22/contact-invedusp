@@ -125,7 +125,7 @@ const AddContact = (props) => {
                 type="submit"
                 style = {{width : "200px"}}
                 onClick= {() => handleSubmit(values, resetForm)}
-                disabled={values.Name != "" ? false : true}
+                disabled={values.Name !== "" ? false : true}
                 className="btn btn-primary"
               >
                 Add Contact

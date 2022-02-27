@@ -10,7 +10,6 @@ import "../AddContact/styles.css";
 const EditContact = (props) => {
   const options = ["Option 1", "Option 2"];
   const [formData, setFormData] = useState([]);
-  const [optionData, setOptionData] = useState();
   const [value, setValue] = React.useState(options[0]);
   const [inputValue, setInputValue] = React.useState("");
 
@@ -23,13 +22,11 @@ const EditContact = (props) => {
   useEffect(() => {
     let contactData = JSON.parse(localStorage.getItem("foreignAddress")) || [];
     let filtered = contactData.filter(function (value, index, arr) {
-      return id == value.id;
+      return id === value.id;
     });
-    console.log(filtered, id);
     setFormData(filtered[0]);
-    setOptionData(filtered[0].type);
     setValue(filtered[0].type);
-  }, []);
+  }, [id]);
 
   const type = ["Personal", "Office"];
   return (
@@ -155,7 +152,7 @@ const EditContact = (props) => {
                 >
                   <button
                     type="submit"
-                    disabled={values.Name != "" ? false : true}
+                    disabled={values.Name !== "" ? false : true}
                     className="btn btn-primary"
                   >
                     Update Contact Data
