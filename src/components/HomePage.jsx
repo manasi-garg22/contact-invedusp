@@ -15,16 +15,48 @@ function HomePage(props) {
 
   useEffect(() => {
     let data = JSON.parse(localStorage.getItem("foreignAddress")) || [];
+    data = data.sort((a, b) => {
+      let fa = a.Name.toLowerCase(),
+          fb = b.Name.toLowerCase();
+
+      if (fa < fb) {
+          return -1;
+      }
+      if (fa > fb) {
+          return 1;
+      }
+      return 0;
+  });
     setContactData(data);
   }, [contactData]);
   const columns = [
     {
       dataField: "Name",
       text: "Name",
+      formatter: (cellContent, row, editor) => {
+        if (cellContent) {
+          return cellContent
+        }
+        return (
+          <h5 style = {{color : "#c11324", fontStyle: 'italic'}}>
+            N/A
+          </h5>
+        );
+      },
     },
     {
       dataField: "Number",
       text: "Number",
+      formatter: (cellContent, row, editor) => {
+        if (cellContent) {
+          return cellContent
+        }
+        return (
+          <h5 style = {{color : "#c11324", fontStyle: 'italic'}}>
+            N/A
+          </h5>
+        );
+      },
     },
     {
       dataField: "isWhatsApp",
@@ -47,7 +79,18 @@ function HomePage(props) {
     {
       dataField: "type",
       text: "Type",
+      formatter: (cellContent, row, editor) => {
+        if (cellContent) {
+          return cellContent
+        }
+        return (
+          <h5 style = {{color : "#c11324", fontStyle: 'italic'}}>
+            N/A
+          </h5>
+        );
+      },
     },
+
 
     {
       dataField: "file",
@@ -57,8 +100,8 @@ function HomePage(props) {
           return <ImagePopup src={row.file} />;
         } else
           return (
-            <h5>
-              <Badge color="danger">Not Available</Badge>
+            <h5 style = {{color : "#c11324", fontStyle: 'italic'}}>
+             N/A
             </h5>
           );
       },
