@@ -102,10 +102,12 @@ function HomePage(props) {
       <Navbar />
       <div
         style={{
+          width: "600px",
           display: "flex",
           flexDirection: "row",
           justifyContent: "space-around",
           margin: "20px",
+
         }}
       >
         <Link to="/addContact">
@@ -114,24 +116,24 @@ function HomePage(props) {
             Add Contact
           </button>
         </Link>
-        <button
+      {selectedData &&  <button
           type="button"
           className="btn btn-danger"
           disabled={disable}
           onClick={toggle}
         >
           Delete Contact
-        </button>
-        <Link to={`/editContact/${selectedData?.id}`}>
+        </button>}
+      { selectedData && <Link to={`/editContact/${selectedData?.id}`}>
           <button
             type="button"
-            className="btn btn-danger"
+            className="btn btn-success"
             disabled={disable}
             onClick={toggle}
           >
             Edit Contact
           </button>
-        </Link>
+        </Link>}
         <Modal isOpen={deleteModal} toggle={toggle} className={props.className}>
           <ModalHeader toggle={toggle} charCode="Y">
             Delete Contact
@@ -157,7 +159,7 @@ function HomePage(props) {
             responsive={true}
           />
         ) : (
-          <h3> No Data Available </h3>
+          <h3 style = {{marginLeft : "40%", color : "#c11324", fontStyle: 'italic'}}> Press Add Contact to Add Data</h3>
         )}
       </div>
     </div>

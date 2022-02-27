@@ -22,7 +22,7 @@ const EditContact = (props) => {
   useEffect(() => {
     let contactData = JSON.parse(localStorage.getItem("foreignAddress")) || [];
     let filtered = contactData.filter(function (value, index, arr) {
-      return id === value.id;
+      return parseInt(id) === value.id;
     });
     setFormData(filtered[0]);
     setValue(filtered[0].type);
@@ -143,9 +143,9 @@ const EditContact = (props) => {
                     />
                   </Grid>
                 </Grid>
+                <Grid item xs={12} md={8}>
                 <div
                   style={{
-                    marginLeft: "300px",
                     width: "250px",
                     marginTop: "30px",
                   }}
@@ -158,6 +158,8 @@ const EditContact = (props) => {
                     Update Contact Data
                   </button>
                 </div>
+                </Grid>
+
               </Form>
             )}
           </Formik>
