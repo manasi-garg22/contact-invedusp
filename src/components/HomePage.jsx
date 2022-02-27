@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import AddContact from "./AddContact";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
 import Navbar from "./Navbar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,7 +10,6 @@ import { Link } from "react-router-dom";
 function HomePage(props) {
   const [contactData, setContactData] = useState([]);
   const [disable, setDisable] = useState(true);
-  const [resetPage, setResetPage] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
   const [selectedData, setSelectedData] = useState();
 
@@ -75,11 +73,9 @@ function HomePage(props) {
     onSelect: (row, isSelect, rowIndex, e) => {
       if (isSelect) {
         setDisable(false);
-        setResetPage(true);
         setSelectedData(row);
       } else {
         setDisable(true);
-        setResetPage(false);
         setSelectedData();
       }
     },
@@ -95,7 +91,7 @@ function HomePage(props) {
   };
   const deleteContact = () => {
     let filtered = contactData.filter(function (value, index, arr) {
-      return selectedData.id != value.id;
+      return selectedData.id !== value.id;
     });
     localStorage.setItem("foreignAddress", JSON.stringify(filtered));
     setContactData(filtered);
