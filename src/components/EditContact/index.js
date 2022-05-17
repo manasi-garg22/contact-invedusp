@@ -20,12 +20,12 @@ const EditContact = (props) => {
   };
 
   useEffect(() => {
-    let contactData = JSON.parse(localStorage.getItem("foreignAddress")) || [];
+    let contactData = JSON.parse(localStorage.getItem("contactData")) || [];
     let filtered = contactData.filter(function (value, index, arr) {
       return parseInt(id) === value.id;
     });
     setFormData(filtered[0]);
-    setValue(filtered[0].type);
+    setValue(filtered[0]?.type);
   }, [id]);
 
   const type = ["Personal", "Office"];
@@ -40,16 +40,14 @@ const EditContact = (props) => {
             onSubmit={(data) => {
               let arr = [];
               let contactDetails =
-                JSON.parse(localStorage.getItem("foreignAddress")) || [];
+                JSON.parse(localStorage.getItem("contactData")) || [];
               let filtered = contactDetails.filter(function (
                 value,
-                index,
-                arr
               ) {
-                return value.id !== data.id;
+                return value?.id !== data?.id;
               });
               arr = [...filtered, data];
-              localStorage.setItem("foreignAddress", JSON.stringify(arr));
+              localStorage.setItem("contactData", JSON.stringify(arr));
               handleNextClick();
             }}
             enableReinitialize

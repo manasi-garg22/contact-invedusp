@@ -14,7 +14,7 @@ function HomePage(props) {
   const [selectedData, setSelectedData] = useState();
 
   useEffect(() => {
-    let data = JSON.parse(localStorage.getItem("foreignAddress")) || [];
+    let data = JSON.parse(localStorage.getItem("contactData")) || [];
     data = data.sort((a, b) => {
       let fa = a.Name.toLowerCase(),
           fb = b.Name.toLowerCase();
@@ -136,7 +136,7 @@ function HomePage(props) {
     let filtered = contactData.filter(function (value, index, arr) {
       return selectedData.id !== value.id;
     });
-    localStorage.setItem("foreignAddress", JSON.stringify(filtered));
+    localStorage.setItem("contactData", JSON.stringify(filtered));
     setContactData(filtered);
     toggle();
   };
