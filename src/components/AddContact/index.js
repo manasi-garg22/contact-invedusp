@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useRef } from "react";
 import { storage } from "./firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { v4 } from "uuid";
@@ -10,7 +10,8 @@ import Navbar from "../Navbar";
 
 import "./styles.css";
 
-const AddContact = (props) => {
+const AddContact = () => {
+  const ref = useRef();
   const [displayData, setDisplayData] = useState({
     Name: "",
     Number: "",
@@ -21,13 +22,14 @@ const AddContact = (props) => {
     id: Math.floor(Math.random() * 100),
   });
   const [uploadImage, setUploadImage] = useState("");
-  const handleSubmit = (data, resetFrom) => {
+    const handleSubmit = (data, resetFrom) => {
     data.profilePublicUrl = displayData?.profilePublicUrl;
     let arr = [];
     let contactDetails = JSON.parse(localStorage.getItem("contactData")) || [];
     arr = [...contactDetails, data];
     localStorage.setItem("contactData", JSON.stringify(arr));
     setDisplayData({});
+    ref.current.value = "";
     resetFrom();
   };
 
@@ -128,6 +130,7 @@ const AddContact = (props) => {
                     id="file"
                     name="file"
                     type="file"
+                    ref={ref}
                     onChange={(event) => {
                       event.preventDefault();
                       let reader = new FileReader();
@@ -161,7 +164,7 @@ const AddContact = (props) => {
                   type="submit"
                   style={{ width: "200px" }}
                   onClick={() => handleSubmit(values, resetForm)}
-                  disabled={values.Name !== "" ? false : true}
+                  disabled={values.Name === "" ? true : false}
                   className="btn btn-primary"
                 >
                   Add Contact
